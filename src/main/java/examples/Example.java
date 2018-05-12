@@ -17,7 +17,7 @@ public class Example {
 			// Build the script from the builder
 			Script script = builder.build();
 			// Get the result from the script using the defined function run
-			int result = script.expect(Integer.TYPE, "run", 10);
+			int result = script.expect(Integer.class, "run", 10);
 			// Print the result should be 13 or (10 + 3)
 			System.out.println(result);
 		});

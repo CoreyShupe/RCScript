@@ -46,33 +46,6 @@ abstract class GenericScript implements Script {
 	}
 
 	/**
-	 * Manually casts down a primitive type, a workaround to incapability of casting int to Integer.
-	 *
-	 * @param classIdentifier
-	 * 		The {@link Class} to cast with.
-	 * @param o
-	 * 		The {@link Object} to cast.
-	 * @param <T>
-	 * 		The type which the {@link Object} should return as, defined by the {@link Class}.
-	 *
-	 * @return The casted {@link T} value from the {@link Object}.
-	 */
-	@SuppressWarnings("unchecked")
-	<T> T manualCast(Class<T> classIdentifier, Object o) {
-		if (o == null) {
-			return null;
-		}
-		try {
-			if (classIdentifier.isPrimitive()) {
-				return (T) o;
-			}
-			return classIdentifier.cast(o);
-		} catch (ClassCastException ex) {
-			return null;
-		}
-	}
-
-	/**
 	 * Executes a new {@link Callable} inside of the {@link #EXECUTOR_SERVICE}.
 	 *
 	 * @param callable
@@ -139,7 +112,7 @@ abstract class GenericScript implements Script {
 	 */
 	@Override
 	public <T> T expect(Class<T> classIdentifier) {
-		return manualCast(classIdentifier, execute());
+		return classIdentifier.cast(execute());
 	}
 
 	/**

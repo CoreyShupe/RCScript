@@ -108,7 +108,7 @@ public class InvocableScript extends GenericScript {
 	 */
 	@Override
 	public <T> T expect(Class<T> classIdentifier, String func, Object... args) {
-		return manualCast(classIdentifier, execute(func, args));
+		return classIdentifier.cast(execute(func, args));
 	}
 
 	/**
