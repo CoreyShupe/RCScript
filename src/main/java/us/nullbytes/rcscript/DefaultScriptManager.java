@@ -47,6 +47,9 @@ public class DefaultScriptManager implements ScriptManager {
 	 * succeeded.
 	 */
 	public static Optional<DefaultScriptManager> processEngine(String name) {
+		if (scriptManagers.containsKey(name)) {
+			return Optional.of(scriptManagers.get(name));
+		}
 		ScriptEngine received = new ScriptEngineManager().getEngineByName(name);
 		if (received == null) {
 			return Optional.empty();

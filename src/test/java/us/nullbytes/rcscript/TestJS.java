@@ -34,7 +34,7 @@ public class TestJS {
 	@Test
 	public void testFunctionEval() {
 		UUID scriptID = UUID.randomUUID();
-		manager.packScript("function init() { return \"Example String\"; }" +
+		manager.packScript("function init() { return \"Example String\"; } " +
 				"function secondary(numb) { return eval(numb + typer); }", scriptID).place("typer", 3).build();
 		Optional<Script> script = manager.unpack(scriptID);
 		Assert.assertTrue(script.isPresent());
