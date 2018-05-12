@@ -7,10 +7,8 @@ import us.nullbytes.rcscript.data.ScriptData;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 /**
  * The {@code abstract} generic {@link Script} used for most implementations.
@@ -112,8 +110,8 @@ abstract class GenericScript implements Script {
 	 *
 	 * @return The {@link Future} of type {@link T}.
 	 */
-	<T> Future<T> executeService(Callable<T> callable) {
-		return EXECUTOR_SERVICE.submit(callable);
+	<T> CompletableFuture<T> executeService(Supplier<T> callable) {
+		return CompletableFuture.supplyAsync(callable, EXECUTOR_SERVICE);
 	}
 
 	/**
@@ -184,7 +182,7 @@ abstract class GenericScript implements Script {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <T> Future<T> expectLater(Class<T> classIdentifier) {
+	public <T> CompletableFuture<T> expectLater(Class<T> classIdentifier) {
 		return executeService(() -> expect(classIdentifier));
 	}
 
@@ -192,7 +190,7 @@ abstract class GenericScript implements Script {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <T> Future<T> expectLater(Class<T> classIdentifier, String func, Object... args) {
+	public <T> CompletableFuture<T> expectLater(Class<T> classIdentifier, String func, Object... args) {
 		throw new UnsupportedOperationException("This type of script cannot perform function calls.");
 	}
 }

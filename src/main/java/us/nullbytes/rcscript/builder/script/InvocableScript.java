@@ -9,6 +9,7 @@ import javax.script.CompiledScript;
 import javax.script.Invocable;
 import javax.script.ScriptException;
 import java.io.InputStreamReader;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -114,7 +115,7 @@ public class InvocableScript extends GenericScript {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <T> Future<T> expectLater(Class<T> classIdentifier, String func, Object... args) {
+	public <T> CompletableFuture<T> expectLater(Class<T> classIdentifier, String func, Object... args) {
 		return executeService(() -> expect(classIdentifier, func, args));
 	}
 }

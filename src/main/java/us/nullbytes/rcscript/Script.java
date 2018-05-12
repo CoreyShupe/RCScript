@@ -2,6 +2,7 @@ package us.nullbytes.rcscript;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -97,9 +98,9 @@ public interface Script {
 	 * @param <T>
 	 * 		The type of expected outcome provided by the {@link Class} identifier.
 	 *
-	 * @return The {@link Future} result of the function typed by {@link T}.
+	 * @return The {@link CompletableFuture} result of the function typed by {@link T}.
 	 */
-	<T> Future<T> expectLater(Class<T> classIdentifier);
+	<T> CompletableFuture<T> expectLater(Class<T> classIdentifier);
 
 	/**
 	 * Executes a function async with specified parameters with an expected outcome.
@@ -113,9 +114,9 @@ public interface Script {
 	 * @param <T>
 	 * 		The type of expected outcome provided by the {@link Class} identifier.
 	 *
-	 * @return The {@link Future} result of the function typed by {@link T}.
+	 * @return The {@link CompletableFuture} result of the function typed by {@link T}.
 	 */
-	<T> Future<T> expectLater(Class<T> classIdentifier, String func, Object... args);
+	<T> CompletableFuture<T> expectLater(Class<T> classIdentifier, String func, Object... args);
 
 	/**
 	 * Sets the {@link ExceptionHandler} for all {@link ScriptException}s.
