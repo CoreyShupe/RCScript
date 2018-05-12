@@ -112,7 +112,8 @@ abstract class GenericScript implements Script {
 	 */
 	@Override
 	public <T> T expect(Class<T> classIdentifier) {
-		return classIdentifier.cast(execute());
+		Object result = execute();
+		return classIdentifier.isInstance(result) ? classIdentifier.cast(result) : null;
 	}
 
 	/**
