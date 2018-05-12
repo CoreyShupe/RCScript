@@ -59,45 +59,17 @@ abstract class GenericScript implements Script {
 	 */
 	@SuppressWarnings("unchecked")
 	<T> T manualCast(Class<T> classIdentifier, Object o) {
-		if (classIdentifier.isPrimitive()) {
-			switch (classIdentifier.getName()) {
-				case "byte":
-				case "java.lang.Byte": {
-					return (T) Byte.valueOf(o.toString());
-				}
-				case "char":
-				case "java.lang.Character": {
-					return (T) Character.valueOf(o.toString().charAt(0));
-				}
-				case "short":
-				case "java.lang.Short": {
-					return (T) Short.valueOf(o.toString());
-				}
-				case "int":
-				case "java.lang.Integer": {
-					return (T) Integer.valueOf(o.toString());
-				}
-				case "long":
-				case "java.lang.Long": {
-					return (T) Long.valueOf(o.toString());
-				}
-				case "double":
-				case "java.lang.Double": {
-					return (T) Double.valueOf(o.toString());
-				}
-				case "float":
-				case "java.lang.Float": {
-					return (T) Float.valueOf(o.toString());
-				}
-				case "boolean":
-				case "java.lang.Boolean": {
-					return (T) Boolean.valueOf(o.toString());
-				}
-				default:
-					break;
-			}
+		if (o == null) {
+			return null;
 		}
-		return classIdentifier.cast(o);
+		try {
+			if (classIdentifier.isPrimitive()) {
+				return (T) o;
+			}
+			return classIdentifier.cast(o);
+		} catch (ClassCastException ex) {
+			return null;
+		}
 	}
 
 	/**
